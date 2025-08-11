@@ -29,11 +29,7 @@ const CreateNote = () => {
 
     setLoading(true)
     try {
-      await api.post("/notes", { ...postData }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      await api.post("/notes", postData);
       toast.success("Note created successfully!")
     } catch (e:unknown) {
       const error = e as AxiosError
