@@ -3,6 +3,7 @@ import axios from "axios"
 import toast from "react-hot-toast"
 import Navbar from "../components/navbar"
 import Notes from "../components/notes"
+import api from "../lib/axios"
 
 interface NoteData {
   title: string
@@ -17,7 +18,7 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const result: NoteData[] = await axios.get<NoteData[]>("http://localhost:5000/api/notes").then(res => res.data)
+      const result: NoteData[] = await axios.get<NoteData[]>(`${api}/notes`).then(res => res.data)
       setNotes(result)
     } catch (error) {
       if (error instanceof TypeError) {

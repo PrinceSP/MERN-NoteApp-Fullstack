@@ -4,6 +4,7 @@ import { useState, type SyntheticEvent } from "react"
 import { Link, useNavigate } from "react-router"
 import RateLimited from "../components/rateLimited"
 import toast from "react-hot-toast"
+import api from "../lib/axios"
 
 const INPUTCLASS = "border-1 border-zinc-400 rounded-xl w-full p-4 mt-2"
 
@@ -29,7 +30,7 @@ const CreateNote = () => {
 
     setLoading(true)
     try {
-      await axios.post('http://localhost:5000/api/notes', { ...postData }, {
+      await axios.post(api+'/notes', { ...postData }, {
         headers: {
           'Content-Type': 'application/json'
         }
