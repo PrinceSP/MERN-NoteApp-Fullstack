@@ -1,6 +1,5 @@
 import { PenSquareIcon, Trash2 } from 'lucide-react'
 import { Link } from 'react-router'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import type { Dispatch, MouseEvent, SetStateAction } from 'react'
 import { formatDate } from "../lib/utils"
@@ -26,7 +25,7 @@ const Notes: React.FC<NotesProps> = ({ item, setNotes }) => {
     if (!window.confirm("Are you sure want to delete this note?")) return;
 
     try {
-      await axios.delete(`${api}/notes/${noteId}`)
+      await api.delete(`/notes/${noteId}`)
       setNotes(prevValue => prevValue.filter(note => note._id !== noteId))
       toast.success("Note successfully deleted!")
     } catch (error) {

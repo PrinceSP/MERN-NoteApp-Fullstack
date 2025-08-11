@@ -1,4 +1,3 @@
-import axios from "axios"
 import { ArrowLeft, LoaderIcon, Trash2 } from "lucide-react"
 import { useEffect, useState, type FormEvent, type MouseEvent } from "react"
 import toast from "react-hot-toast"
@@ -23,8 +22,7 @@ const NoteDetails = () => {
 
   const getNote = async (noteId: string | undefined) => {
     try {
-      await axios.get(`${api}/notes/${noteId}`)
-        .then(result => setNote(result.data))
+      await api.get(`${api}/notes/${noteId}`).then(result => setNote(result.data))
     } catch (error) {
       toast.error("Can't get your note")
     } finally {
@@ -38,7 +36,7 @@ const NoteDetails = () => {
     if (!window.confirm("Are you sure want to delete this note?")) return
 
     try {
-      await axios.delete(`${api}/notes/${noteId}`)
+      await api.delete(`${api}/notes/${noteId}`)
       toast.success("Successfully delete your note!")
     } catch (error) {
       toast.error("Can't delete your note!")
@@ -58,7 +56,7 @@ const NoteDetails = () => {
 
     setLoading(true)
     try {
-      await axios.put(`${api}/notes/${noteId}`, { ...note })
+      await api.put(`${api}/notes/${noteId}`, { ...note })
       toast.success("Successfully updating your note!")
     } catch (error) {
       toast.error("Can't update your note")

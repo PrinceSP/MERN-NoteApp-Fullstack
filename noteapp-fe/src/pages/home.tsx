@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import toast from "react-hot-toast"
 import Navbar from "../components/navbar"
 import Notes from "../components/notes"
+import api from "../lib/axios"
 import NotesNotFound from "../components/notesNoteFound"
 
 interface NoteData {
@@ -18,18 +18,9 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get(`http://3.107.189.77/api/notes`);
-      
-      let fetchedNotes: NoteData[] = [];
+      const res: NoteData[] = await api.get("/notes").then(res => res.data);
 
-      if (Array.isArray(res.data)) {
-        fetchedNotes = res.data;
-      } else if (res.data && Array.isArray(res.data.notes)) {
-        fetchedNotes = res.data.notes;
-      }
-
-      setNotes(fetchedNotes);
-
+      setNotes(res);
     } catch (error) {
       if (error instanceof TypeError) {
         toast.error('Network error occurred')
@@ -53,7 +44,7 @@ const Home = () => {
         {loading && <p className="text-center text-primary py-10">Loading notes...</p>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.isArray(notes) && notes.length > 0 ? (notes || []).map(item =>
+          {notes.length > 0 ? notes.map(item =>
             <Notes key={item._id} item={item} setNotes={setNotes} />
           ) :
             <NotesNotFound />}

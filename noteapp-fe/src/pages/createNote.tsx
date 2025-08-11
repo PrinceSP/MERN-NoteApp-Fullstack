@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios"
+import { AxiosError } from "axios"
 import { ArrowLeft } from "lucide-react"
 import { useState, type SyntheticEvent } from "react"
 import { Link, useNavigate } from "react-router"
@@ -20,7 +20,6 @@ const CreateNote = () => {
   const navigate = useNavigate()
 
   async function createNote(e: SyntheticEvent<HTMLFormElement>) {
-    // Prevent the browser from reloading the page
     e.preventDefault();
 
     if (!postData.title.trim() && !postData.content.trim()) {
@@ -30,7 +29,7 @@ const CreateNote = () => {
 
     setLoading(true)
     try {
-      await axios.post(`${api}/notes`, { ...postData }, {
+      await api.post(`${api}/notes`, { ...postData }, {
         headers: {
           'Content-Type': 'application/json'
         }
