@@ -3,7 +3,6 @@ import axios from "axios"
 import toast from "react-hot-toast"
 import Navbar from "../components/navbar"
 import Notes from "../components/notes"
-import api from "../lib/axios"
 import NotesNotFound from "../components/notesNoteFound"
 
 interface NoteData {
@@ -19,8 +18,7 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get(`${api}/notes`);
-      console.log(import.meta.env.MODE)
+      const res = await axios.get(`http://3.107.189.77/api/notes`);
       
       let fetchedNotes: NoteData[] = [];
 
@@ -43,8 +41,6 @@ const Home = () => {
       setLoading(false)
     }
   }
-
-  
 
   useEffect(() => {
     fetchNotes()
