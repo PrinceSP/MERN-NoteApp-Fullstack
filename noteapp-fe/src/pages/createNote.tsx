@@ -30,7 +30,7 @@ const CreateNote = () => {
 
     setLoading(true)
     try {
-      await axios.post(api+'/notes', { ...postData }, {
+      await axios.post(`${api}/notes`, { ...postData }, {
         headers: {
           'Content-Type': 'application/json'
         }
