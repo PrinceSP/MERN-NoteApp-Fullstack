@@ -1,0 +1,10 @@
+{
+  "name": "mern-noteapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix noteapp-fe && npm run build --prefix noteapp-fe",
+    "audit": "npm audit fix --prefix backend && npm audit fix --prefix noteapp-fe",
+    "start":"npm run start --prefix backend"
+  }
+}
