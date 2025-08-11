@@ -4,7 +4,7 @@ import toast from "react-hot-toast"
 import Navbar from "../components/navbar"
 import Notes from "../components/notes"
 import api from "../lib/axios"
-import NoteDetails from "./noteDetails"
+import NotesNotFound from "../components/notesNoteFound"
 
 interface NoteData {
   title: string
@@ -19,7 +19,7 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const result: NoteData[] = await axios.get<NoteData[]>(`${api}/notes`).then(res => res.data)
+      const result: NoteData[] = await axios.get<NoteData[]>(`http://3.107.189.77/api/notes`).then(res => Array.isArray(res.data) ? res.data : res.data || [])
       setNotes(result)
     } catch (error) {
       if (error instanceof TypeError) {
@@ -36,6 +36,8 @@ const Home = () => {
     fetchNotes()
   }, [])
 
+  console.log(notes)
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -43,10 +45,10 @@ const Home = () => {
         {loading && <p className="text-center text-primary py-10">Loading notes...</p>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {notes.length > 1 ? notes.map(item =>
+          {Array.isArray(notes) && notes.length > 0 ? (notes||[]).map(item =>
             <Notes key={item._id} item={item} setNotes={setNotes} />
           ) :
-            <NoteDetails />}
+            <NotesNotFound />}
         </div>
       </div>
     </div>

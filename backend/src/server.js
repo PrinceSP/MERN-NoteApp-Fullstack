@@ -1,7 +1,6 @@
 import express from 'express'
 import dotenv from "dotenv"
 import cors from "cors"
-import path from 'path'
 import connectDB from "./config/db.js"
 import noteRoute from './routes/noteRoute.js'
 import userRoute from './routes/userRoute.js'
@@ -11,7 +10,6 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000  // Changed from 5009 to 5000
 const HOST = '0.0.0.0'  // Added host binding
-const __dirname = path.resolve()
 
 //middleware
 if (process.env.NODE_ENV !== "production") {
