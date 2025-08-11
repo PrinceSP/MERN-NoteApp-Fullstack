@@ -19,14 +19,25 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const result: NoteData[] = await axios.get<NoteData[]>(`${api}/notes`).then(res => Array.isArray(res.data) ? res.data : res.data || [])
-      setNotes(result)
+      const res = await axios.get(`http://3.107.189.77/api/notes`);
+
+      let fetchedNotes: NoteData[] = [];
+
+      if (Array.isArray(res.data)) {
+        fetchedNotes = res.data;
+      } else if (res.data && Array.isArray(res.data.notes)) {
+        fetchedNotes = res.data.notes;
+      }
+
+      setNotes(fetchedNotes);
+
     } catch (error) {
       if (error instanceof TypeError) {
         toast.error('Network error occurred')
       } else {
         toast.error('Failed to load notes')
       }
+      setNotes([]);
     } finally {
       setLoading(false)
     }
@@ -36,8 +47,6 @@ const Home = () => {
     fetchNotes()
   }, [])
 
-  console.log(notes)
-
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -45,7 +54,7 @@ const Home = () => {
         {loading && <p className="text-center text-primary py-10">Loading notes...</p>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.isArray(notes) && notes.length > 0 ? (notes||[]).map(item =>
+          {Array.isArray(notes) && notes.length > 0 ? (notes || []).map(item =>
             <Notes key={item._id} item={item} setNotes={setNotes} />
           ) :
             <NotesNotFound />}
