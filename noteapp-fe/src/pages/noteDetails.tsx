@@ -22,7 +22,7 @@ const NoteDetails = () => {
 
   const getNote = async (noteId: string | undefined) => {
     try {
-      await api.get(`${api}/notes/${noteId}`).then(result => setNote(result.data))
+      await api.get(`/notes/${noteId}`).then(result => setNote(result.data))
     } catch (error) {
       toast.error("Can't get your note")
     } finally {
@@ -36,7 +36,7 @@ const NoteDetails = () => {
     if (!window.confirm("Are you sure want to delete this note?")) return
 
     try {
-      await api.delete(`${api}/notes/${noteId}`)
+      await api.delete(`/notes/${noteId}`)
       toast.success("Successfully delete your note!")
     } catch (error) {
       toast.error("Can't delete your note!")
@@ -56,7 +56,7 @@ const NoteDetails = () => {
 
     setLoading(true)
     try {
-      await api.put(`${api}/notes/${noteId}`, { ...note })
+      await api.put(`/notes/${noteId}`, { ...note })
       toast.success("Successfully updating your note!")
     } catch (error) {
       toast.error("Can't update your note")

@@ -29,7 +29,7 @@ const CreateNote = () => {
 
     setLoading(true)
     try {
-      await api.post(`${api}/notes`, { ...postData }, {
+      await api.post("/notes", { ...postData }, {
         headers: {
           'Content-Type': 'application/json'
         }
