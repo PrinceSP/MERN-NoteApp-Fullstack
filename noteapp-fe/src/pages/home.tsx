@@ -19,8 +19,9 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get(`${api}/notes`);
-
+      const res = await axios.get(`http://3.107.189.77/api/notes`);
+      console.log(import.meta.env.MODE)
+      
       let fetchedNotes: NoteData[] = [];
 
       if (Array.isArray(res.data)) {
@@ -42,6 +43,8 @@ const Home = () => {
       setLoading(false)
     }
   }
+
+  
 
   useEffect(() => {
     fetchNotes()

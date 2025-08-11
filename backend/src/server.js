@@ -12,7 +12,16 @@ const PORT = process.env.PORT || 5000  // Changed from 5009 to 5000
 const HOST = '0.0.0.0'  // Added host binding
 
 //middleware
-app.use(cors({ origin: '*' }));
+if (process.env.NODE_ENV !== "production") {
+  app.use(cors({
+    origin: ["http://localhost:5173", "http://3.107.189.77"]  // Added your public IP
+  }))
+} else {
+  // In production, allow your domain
+  app.use(cors({
+    origin: ["http://3.107.189.77", "https://3.107.189.77", "http://localhost:5173"]  // Add your domain here
+  }))
+}
 
 app.use(express.json())
 
