@@ -31,7 +31,7 @@ app.use("/api/notes", noteRoute)
 app.use("/api/user", userRoute)
 
 app.use("/", (_, res) => {
-  res.status(200).send("Successfully connecting...")
+  res.status(200).send(`Listening on http://${HOST}:${PORT}`)
 })
 
 connectDB().then(() => {
