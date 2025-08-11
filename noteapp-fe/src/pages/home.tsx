@@ -19,7 +19,7 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get(`http://3.107.189.77/api/notes`);
+      const res = await axios.get(`${api}/notes`);
 
       let fetchedNotes: NoteData[] = [];
 
