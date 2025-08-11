@@ -19,7 +19,7 @@ const Home = () => {
 
   const fetchNotes = async () => {
     try {
-      const result: NoteData[] = await axios.get<NoteData[]>(`http://3.107.189.77/api/notes`).then(res => Array.isArray(res.data) ? res.data : res.data || [])
+      const result: NoteData[] = await axios.get<NoteData[]>(`${api}/notes`).then(res => Array.isArray(res.data) ? res.data : res.data || [])
       setNotes(result)
     } catch (error) {
       if (error instanceof TypeError) {
